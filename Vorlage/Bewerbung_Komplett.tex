@@ -27,6 +27,26 @@
 \end{filecontents}
 \immediate\write18{pdflatex -output-directory="\buildDir" anschreibenGen.tex}
 
+% Filename without blanks
+\newcommand* \anschreiben {\buildDir anschreibenGen.pdf}
+\newcommand* \motivationsschreiben {\buildDir motivationsschreibenGen.pdf}
+\newcommand* \lebenslauf {\buildDir cvGen.pdf}
+
+%%%%%%%%%% Motivationsschreiben %%%%%%%%%% 
+\begin{filecontents}{motivationsschreibenGen.tex}
+	\documentclass[DINmtext,draft=false]{scrlttr2}
+	\usepackage[utf8x]{inputenc}
+	\usepackage{layouts,etoolbox}
+	\usepackage{Vorlage_Motivationsschreiben}
+	\input{meta.tex}
+	
+	\input{\bewerberInfos}
+	\farbe{blue}
+	\begin{document}
+		\input{\motivationsschreibenRef}
+	\end{document}
+\end{filecontents}
+\immediate\write18{pdflatex -output-directory="\buildDir" motivationsschreibenGen.tex}
 
 %%%%%%%%%% CV %%%%%%%%%% 
 \begin{filecontents}{cvGen.tex}
@@ -67,11 +87,24 @@
 }%
 }
 
+\newcommand\motivationsschreibenImport{%
+	\IfFileExists{\buildDir motivationsschreibenGen.pdf}{
+		\includepdf[pages=-, addtotoc={1, pageRef, 0,Motivationsschreiben,motivationsschreiben}]{\buildDir motivationsschreibenGen}
+	}{
+		\Huge ooops \normalsize etwas stimmt nicht. \\
+		
+		Wahrscheinlich ist die \textbf{\textbackslash buildDir} Variable nicht richtig gesetzt oder \textbf{Shell--Escape} wurde nicht aktiviert, siehe\\ http://tex.stackexchange.com/questions/37489/how-can-i-enable-write-18-on-a-miktex-installation
+		\\\\
+		\textbf{kein Motivationsschreiben} im Pfad "\buildDir\textbackslash motivationsschreibenGen.pdf" \hspace{1pt} gefunden. Bitte "\textbackslash buildir"\hspace{1pt}prüfen\newline\\
+	}%
+}
+
 %%%%%%%%%% Final %%%%%%%%%%
 \farbe{blue}
 \begin{document}
 \anschreibenImport
 \cvImport
+%\motivationsschreibenImport
 \input{\anlagenRef}
 \end{document}
 

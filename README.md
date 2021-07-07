@@ -35,3 +35,7 @@ Notizen
 Für das Bewerbungsfoto: Seitenverhältnis 3:2 
 
 
+Extras
+----------
+* Motivationsschreiben (zusätzlich zum Anschreiben)
+* kleinere Änderungen an Fehlerausgabe bei Generierung der PDFs von ```Bewerbung_Einzeln.tex``` und ```Bewerbung_Komplett.tex``` 

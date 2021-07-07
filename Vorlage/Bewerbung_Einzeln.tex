@@ -10,8 +10,9 @@
 \farbe{blue}
 
 % Filename without blanks
-\newcommand* \anschreiben {\buildDir anschreiben.pdf}
-\newcommand* \lebenslauf {\buildDir cv.pdf}
+\newcommand* \anschreiben {anschreiben.pdf}
+\newcommand* \motivationsschreiben {motivationsschreiben.pdf}
+\newcommand* \lebenslauf {cv.pdf}
 
 \begin{document}
 
@@ -20,19 +21,27 @@
 	\bookmark[page=\thepage,level=0]{Anschreiben}
 	\includepdf[pages=-]{\anschreiben}
 }{
-	\Huge ooops \normalsize etwas stimmt nicht. \\
-	
-	Wahrscheinlich ist die \textbf{\textbackslash buildDir} Variable nicht richtig gesetzt.
-
-	\\\\
-	\textbf{kein Anschreiben} im Pfad "\buildDir\textbackslash anschreibenGen.pdf" \hspace{1pt} gefunden. Bitte "\textbackslash buildir"\hspace{1pt}prüfen\newline\\
+	\textbf{Fehler: Kein Anschreiben unter "\anschreiben" \hspace{1pt} gefunden.}\\
+	Bitte führen Sie zuerst die Datei anschreiben.tex aus, um dieses zu erzeugen. 
+	Falls sie dieses bereits erzeugt haben, überprüfen Sie die angegebene Datei im Befehl "\textbackslash anschreiben" \hspace{1pt}. \\ %sowie angegebenen Pfad in meta.tex im Befehl "\textbackslash buildir".\\
 }
+%\IfFileExists{\motivationsschreiben}{
+	%\includepdf[pages=-, addtotoc={1, pageRef, 0,Motivationsschreiben,motivationsschreiben}]{\motivationsschreiben}
+%	\bookmark[page=\thepage,level=0]{Motivationsschreiben}
+%	\includepdf[pages=-]{\motivationsschreiben}
+%}{
+%	\textbf{Fehler: Kein Motivationsschreiben unter "\motivationsschreiben" \hspace{1pt} gefunden.}\\
+%	Bitte führen Sie zuerst die Datei motivationsschreiben.tex aus, um dieses zu erzeugen. 
+%	Falls sie dieses bereits erzeugt haben, überprüfen Sie die angegebene Datei im Befehl "\textbackslash motivationsschreiben" \hspace{1pt}. \\ % sowie angegebenen Pfad in meta.tex im Befehl "\textbackslash buildir".\\
+%}
 \IfFileExists{\lebenslauf}{
 	%\includepdf[pages=-, addtotoc={1, pageRef, 0,Lebenslauf,lebenslauf}]{\lebenslauf}
 	\bookmark[page=\thepage,level=0]{Lebenslauf}
 	\includepdf[pages=-]{\lebenslauf}
 }{
-	\textbf{kein CV} im Pfad "\buildDir\textbackslash cvGen.pdf" \hspace{1pt} gefunden. Bitte "\textbackslash buildir"\hspace{1pt}prüfen
+	\textbf{Fehler: Kein Lebenslauf unter "\lebenslauf" \hspace{1pt} gefunden.}\\
+	Bitte führen Sie zuerst die Datei cv.tex aus, um diesen zu erzeugen. 
+	Falls sie diesen bereits erzeugt haben, überprüfen Sie die angegebene Datei im Befehl "\textbackslash lebenslauf" \hspace{1pt}. \\ % sowie angegebenen Pfad in meta.tex im Befehl "\textbackslash buildir".\\
 }
 
 \input{\anlagenRef}

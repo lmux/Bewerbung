@@ -20,8 +20,11 @@
 \newcommand* \festnetzNr {}
 \newcommand* \faxNr {} 
 \newcommand* \myEmail {}    
+\newcommand* \myWebsite {}  
 \newcommand \sig{\\\\\hspace*{7mm} {\scriptsize \vorname \ \nachname}}
 \newcommand*  \foto {}
+\newcommand*  \fotoMotivationsschreiben {}
+%TODO: make own height and width commands for fotoMotivationsschreiben
 \newcommand*  \fotoHoehe {4cm}
 \newcommand*  \fotoRahmen {1pt}
 \newcommand* \meinName {\vorname \ \nachname}
@@ -70,8 +73,10 @@
 \def \meineFestnetzNr #1{\renewcommand* \festnetzNr {#1}}
 \def \meineFaxNr #1{\renewcommand* \faxNr {#1}}
 \def \meineEmail #1{\renewcommand* \myEmail {\href{mailto:#1}{#1}}}
+\def \meineWebseite #1{\renewcommand* \myWebsite{\href{https://#1}{#1}}}
 \def \unterschrift[#1][#2]#3 {\renewcommand \sig {\iftoggle{haendischeUnterschrift}{\vspace{1.5\baselineskip}}{\includegraphics[scale=#1]{#3}} {#2 \scriptsize \titulierung \vorname \ \nachname}}}
 \def \foto[#1][#2]#3 {\renewcommand* \foto {#3} \renewcommand* \fotoHoehe {#1} \renewcommand* \fotoRahmen {#2}}
+\def \fotoMotivationsschreiben[#1][#2]#3 {\renewcommand* \fotoMotivationsschreiben {#3} \renewcommand* \fotoHoehe {#1} \renewcommand* \fotoRahmen {#2}}
 \def \meinUnterschriftsOrt #1{\renewcommand* \unterschriftsOrt {#1}}
 
 %\newcommand* xxxxxxx {}  
@@ -141,6 +146,7 @@
 		\if\relax\mobilNr\relax\else 	\\\mobilesymbol \mobilNr\fi%
 		\if\relax\festnetzNr\relax\else \\\phonesymbol \festnetzNr\fi%
 		\if\relax\faxNr\relax\else\\\meinFaxSymbol \faxNr\fi%
+		%\if\relax\myWebsite\relax\else\\\homepagesymbol \myWebsite\fi%
 		\\\emailsymbol \myEmail% \if\relax\myEmail\relax\else\fi%
 		}%
 }
