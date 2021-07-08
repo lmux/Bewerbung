@@ -1,0 +1,152 @@
+\ProvidesPackage{Vorlage_Motivationsschreiben}
+
+\LetterOptionNeedsPapersize{DIN}{a4}
+
+\newtoggle{breitesMotivationsschreiben}
+\DeclareOption{breit}{\toggletrue{breitesMotivationsschreiben}}
+\DeclareOption{schmal}{\togglefalse{breitesMotivationsschreiben}}
+\ExecuteOptions{schmal}
+\ProcessOptions
+
+% ============ Packages ============
+\RequirePackage{graphicx}
+\RequirePackage{GemeinsameDaten}
+%\RequirePackage[utf8]{inputenc}
+\RequirePackage[ngerman=ngerman]{hyphsubst} % ngerman-x-latest ist buggy (miktex) 
+\RequirePackage[ngerman]{babel}% deutsch
+\RequirePackage{verbatim,% Kommentare
+	calc}
+
+\RequirePackage{xcolor}
+\RequirePackage{picture,eso-pic,etoolbox,tikz}
+\RequirePackage{fancyhdr}
+\RequirePackage{wrapfig} % for floating figures
+\errorcontextlines 100000
+\newtoggle{keinFoto}
+\newtoggle{motivationsschreibenTitelZentriert}
+	
+% ============ Koma Optionen ============
+%\KOMAoption{Option }{Werteliste }
+\KOMAoptions{
+	 BCOR=0mm			% Keine Bindekorrektur
+	%,draft=on			% Entwurfsstadium
+	,fontsize=12pt		% Schriftgr. 12 std. bis 10 ok.
+	,foldmarks=false	% Keine Faltmarken
+	,enlargefirstpage=true	% optionale vergroesserung des Txt Bereichs d. 1 Seite
+	,firstfoot=true		% Briefbogenfuss gesetzt? Mit enlargefirstpage verbandelt.
+	,firsthead=true		% Briefkopf an/aus. Def:an
+	,fromalign=right	% Absender rechts statt links. S.171
+	,fromrule=aftername	% Linie unter Absendername . S.171
+	%,locfield=wide		% Breite des Feldes für die Absenderergänzung narrow | wide
+	%% S.182
+	,addrfield=false			% Anschrift mit Rücksendeadresse
+	,backaddress=off		% Rücksendeadresse, oder "plain"
+%	,fromphone=true
+%	,fromfax=false
+%	,fromemail=true
+%	,fromurl=true
+	,refline=narrow
+	%,headsepline=on%%         Line below the page number
+	,parskip=full%%           Space between paragraphs (groesser) Abstand der Absätze (
+	%(half = halbe Zeile, full = ganze Zeile, false = keine leerzeile)
+	%,fromrule=off%%           Line below the sender's area (aftername, afteraddress)
+}
+
+% ============ Daten Abgleich ============
+% color blue
+\definecolor{color0}{rgb}{0,0,0}% black
+\definecolor{color1}{rgb}{0.22,0.45,0.70}% light blue
+\definecolor{color2}{rgb}{0.45,0.45,0.45}% dark grey
+\setkomavar{backaddressseparator} {\ \strut\textcolor{color1}%
+%{\Neutral} }
+{ $\bullet$ }}
+
+%\setkomavar{fromaddress}{\addresse}
+%\newkomavar[Mobil]{mobilphone}
+%\setkomavar{mobilphone}[]{\mobilNr}
+%\setkomavar{fromphone}[]{\festnetzNr}
+
+
+%\setkomavar{fromfax}[]{\faxNr}
+%\setkomavar{fromemail}[]{\myEmail}
+%\setkomavar{place}[BezeichnungPlace]{\unterschriftsOrt}
+%\setkomavar{fromname}{\vorname \ \nachname} % Opt. zwischen Args {}[Bez]
+
+\setkomafont{subject}{\normalcolor\fontseries{sb}\selectfont}
+
+% ============ Style ============
+
+
+%\setkomavar{placeseparator}[]{, }
+%\setkomavar{enclseparator}[Anlagen]{} %Umbenennung, kein :
+
+% ------------ Kopf ------------
+\@setplength{firstheadvpos}{19mm} %Anfang header
+\setkomavar{firsthead}{%
+	%\anschriftKopfZeile%
+	\kopfZeile{}
+}	
+\date{}
+ \setlength{\textheight}{24cm}
+\setlength{\footskip}{0mm}
+\setlength{\footheight}{0mm}
+% ------------ Fuss ------------
+\setkomavar{firstfoot}{\fussLinie{}{0mm}}
+\@setplength{firstfootvpos}{\paperheight-\fussAbstand}% 297-22.5 = 274.5 | org %{274.9mm}
+
+
+% ------------ Titel ------------
+
+%Photo
+%\NewDocumentCommand{\photo}{O{64pt}O{0.4pt}m}{\def\@photowidth{#1}\def\@photoframewidth{#2}\def\@photo{#3}}
+%\photo[\fotoHoehe][\fotoRahmen]{\foto}
+
+%\newcommand \pic {%
+%	\label{uref}
+%	\color{color1}%
+%	\framebox{\includegraphics[width=\@photowidth]{\@photo}}}
+
+%\newcommand \picLine {\makebox[\the\textwidth+\iftoggle{breitesMotivationsschreiben}{0mm}{5mm}][r]{\pic}}%
+
+\newcommand* \titel [1] {%
+%	\iftoggle{keinFoto}{}{%
+%		\newlength{\picLH}%
+%		\settoheight{\picLH}{\picLine}%
+%		\vspace*{0mm}%
+% 	\picLine%
+% 	\vspace{-\picLH}}% 
+	\par\iftoggle{motivationsschreibenTitelZentriert}{\centering}{}
+	{\color{color1} \Huge  #1}
+}
+
+% ============ Abstaende KOMA ============
+%\@setplength{toaddrvpos}{32mm}	%Absenderzeile im Briefsichtfenster richten fuer DINmtext
+
+% ============ Notizen ============
+% Variablen  scrlttr2.				 		| Kap. 4.1 	S.145
+%	\setkomafont{Element }{Befehle }	| Kap. 3		S. 56
+% Fonts von Briefen							| Kap 4.9	S.164
+% \KOMAoption{subject}{left} 			|			 	S.191
+% \setkomavar{title}[]{Bewerbung }	| 				S.190
+% - Unterschrift / alt -
+%\renewcommand{\unterschrift}{\includegraphics[scale=0.15]{\unterschriftBild}}
+%\@setplength{sigbeforevskip}{-15pt}	% {0\baselineskip} 	% Abstand Grussfloskel Unterschrift
+%\setkomavar{signature}[]{ % siehe auch format.lco
+%	\unterschrift%\\					% use \raisebox?
+%	%\vspace{-0.4cm}\scriptsize
+%	%\usekomavar{fromname}
+%} 	% S.201
+
+% ============ TEMP ============
+%\setlength{\textheight}{700pt}
+%\\ \the\textheight	\\%635.5pt
+%\the\footskip	%50.75
+
+% ============ Fin ============
+\AtEndPreamble{
+	\recalctypearea	% Satzspiegel und Rändern neu berechnen
+	%\the\useplength{refvpos} % >> 229.04468pt			\@addtoplength{refvpos}{0}  	\@setplength{refvpos}{229pt}
+	%\@setplength{subjectaftervskip}{\baselineskip} %subjectaftervskip >>  29pt
+	\setlength{\footskip}{-8pt} % -30pt Anlagen anpassen
+	%\setlength{\footskip}{0pt}
+}
